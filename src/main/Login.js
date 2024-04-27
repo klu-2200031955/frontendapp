@@ -88,11 +88,13 @@ function Login({ closePopup,onAdminLogin,onFacultyLogin,onStudentLogin }) {
 
         </div>
         
-        <ReCAPTCHA sitekey='6LdMBJMpAAAAAPwKTXr7CHvJ41sqADyBKNMNT0gT' onChange={(val) => setCapVal(val)} align='center'/>
+        // <ReCAPTCHA sitekey='6LdMBJMpAAAAAPwKTXr7CHvJ41sqADyBKNMNT0gT' onChange={(val) => setCapVal(val)} align='center'/>
         <div className='form-element'>
         </div>
         <div align="center">
-          <button type="submit" className="button" disabled={!capVal}>Sign in</button>
+          <button type="submit" className="button">Sign in</button>
+          // <button type="submit" className="button" disabled={!capVal}>Sign in</button>
+  
         </div>
       </form>
 
