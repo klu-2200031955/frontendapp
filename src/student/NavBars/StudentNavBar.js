@@ -98,7 +98,7 @@ export default function StudentNavBar() {
   const handleLogout = () => {
     localStorage.removeItem('isStudentLoggedIn');
     localStorage.removeItem('student');
-    navigate('/home');
+    navigate('/');
     window.location.reload();
   };
   return (
