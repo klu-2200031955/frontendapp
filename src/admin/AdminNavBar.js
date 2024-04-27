@@ -8,10 +8,8 @@ import Student from './Student';
 import Framing from './Framing';
 import Course from './Course';
 import mylogo from '../images/MY LOGO.jpg';
-import { useNavigate } from 'react-router-dom';
 
 export default function AdminNavBar() {
-  const navigate = useNavigate();
 
   const change4 = () => {
     document.getElementById("logout").style.backgroundColor = 'black';
@@ -23,7 +21,6 @@ export default function AdminNavBar() {
   const handleLogout = () => {
     localStorage.removeItem('isAdminLoggedIn');
     localStorage.removeItem('admin');
-    // navigate('/home');
     window.location.reload();
   };
 
