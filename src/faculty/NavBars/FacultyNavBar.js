@@ -102,7 +102,7 @@ export default function FacultyNavBar() {
   const handleLogout = () => {
     localStorage.removeItem('isFacultyLoggedIn');
     localStorage.removeItem('faculty');
-    navigate('/home');
+    navigate('/');
     window.location.reload();
   };
 
