@@ -5,6 +5,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import config from './../config';
 
 
 
@@ -26,9 +27,9 @@ function Login({ closePopup,onAdminLogin,onFacultyLogin,onStudentLogin }) {
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    const admin = await axios.post('http://localhost:2032/checkadminlogin', formData);
-    const faculty = await axios.post('http://localhost:2032/checkfacultylogin', formData);
-    const student = await axios.post('http://localhost:2032/checkstudentlogin', formData);
+    const admin = await axios.post(`${config.url}/checkadminlogin`, formData);
+    const faculty = await axios.post(`${config.url}/checkfacultylogin`, formData);
+    const student = await axios.post(`${config.url}/checkstudentlogin`, formData);
 
     try {
       if(admin.data!=null){
