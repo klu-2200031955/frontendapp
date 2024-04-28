@@ -20,15 +20,12 @@ function App() {
     setIsStudentLoggedIn(studentLoggedIn);
     setIsFacultyLoggedIn(facultyLoggedIn);
 
-    // Set up a timer to clear local storage after 5 minutes
     const clearLocalStorageTimeout = setTimeout(() => {
       localStorage.clear();
       setIsAdminLoggedIn(false);
       setIsStudentLoggedIn(false);
       setIsFacultyLoggedIn(false);
-    }, 5 * 60 * 1000); // 5 minutes in milliseconds
-
-    // Clean up the timer when component unmounts
+    }, 5 * 60 * 1000); 
     return () => clearTimeout(clearLocalStorageTimeout);
   }, []);
 
