@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import RoutingsforApp from './RoutingsforApp';
+import { useEffect, useState } from 'react';
 import AdminNavBar from './admin/AdminNavBar';
 import StudentNavBar from './student/NavBars/StudentNavBar';
 import FacultyNavBar from './faculty/NavBars/FacultyNavBar';
@@ -19,17 +20,17 @@ function App() {
     setIsStudentLoggedIn(studentLoggedIn);
     setIsFacultyLoggedIn(facultyLoggedIn);
 
-    // Clear local storage when the window is closed
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    // Set up a timer to clear local storage after 5 minutes
+    const clearLocalStorageTimeout = setTimeout(() => {
+      localStorage.clear();
+      setIsAdminLoggedIn(false);
+      setIsStudentLoggedIn(false);
+      setIsFacultyLoggedIn(false);
+    }, 5 * 60 * 1000); // 5 minutes in milliseconds
 
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
+    // Clean up the timer when component unmounts
+    return () => clearTimeout(clearLocalStorageTimeout);
   }, []);
-
-  const handleBeforeUnload = () => {
-    localStorage.clear();
-  };
 
   const onAdminLogin = () => {
     localStorage.setItem('isAdminLoggedIn', 'true');
@@ -66,5 +67,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;
