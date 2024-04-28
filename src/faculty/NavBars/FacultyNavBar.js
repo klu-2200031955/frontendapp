@@ -102,7 +102,7 @@ export default function FacultyNavBar() {
   const handleLogout = () => {
     localStorage.removeItem('isFacultyLoggedIn');
     localStorage.removeItem('faculty');
-    navigate('/home');
+    navigate('/');
     window.location.reload();
   };
 
@@ -126,7 +126,7 @@ export default function FacultyNavBar() {
         <Link className={styles.text33} id='timetable' onClick={change3} to="/facultytimetable/facultyclasses">Time Table</Link>
       </div>
       <div className={styles['men-uitem-default']}>
-        <Link className={styles.text31} id='logout' onClick={() => { change4(); handleLogout(); }} to="/logout">Logout</Link>
+        <Link className={styles.text31} id='logout' onClick={() => { change4(); handleLogout(); }}>Logout</Link>
       </div>
 
       <Routes>

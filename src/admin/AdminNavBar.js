@@ -8,7 +8,6 @@ import Student from './Student';
 import Framing from './Framing';
 import Course from './Course';
 import mylogo from '../images/MY LOGO.jpg';
-import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function AdminNavBar() {
@@ -24,7 +23,7 @@ export default function AdminNavBar() {
   const handleLogout = () => {
     localStorage.removeItem('isAdminLoggedIn');
     localStorage.removeItem('admin');
-    navigate('/home');
+    navigate('/');
     window.location.reload();
   };
 
@@ -40,7 +39,7 @@ export default function AdminNavBar() {
         <img src={mylogo} alt='My Logo' className={styles['previewredirect6']} />
 
         <div className={styles['men-uitem-default']}>
-          <Link className={styles['text31']} id='logout' onClick={() => { change4(); handleLogout(); }} to="/logout">Logout</Link>
+          <Link className={styles['text31']} id='logout' onClick={() => { change4(); handleLogout(); }}>Logout</Link>
         </div>
         <div className={styles['frame22']}>
           <Link className={styles['text17']} to="/admindashboard">Dashboard</Link>
@@ -56,7 +55,6 @@ export default function AdminNavBar() {
           <Route path="/adminstudent/*" element={<Student />} exact />
           <Route path="/adminframing/*" element={<Framing />} exact />
           <Route path="/admincourses/*" element={<Course />} exact />
-          {/* <Route path="/logout" element={<orgmain/>} exact/> */}
         </Routes>
 
         <HCAPNav />

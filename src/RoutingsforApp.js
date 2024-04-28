@@ -15,7 +15,6 @@ export default function RoutingsforApp({onAdminLogin,onFacultyLogin,onStudentLog
             
             <Route path="/" element={<MainHome onAdminLogin={onAdminLogin} onStudentLogin={onStudentLogin} onFacultyLogin={onFacultyLogin}/>} exact />
             <Route path="/home" element={<MainHome onAdminLogin={onAdminLogin} onStudentLogin={onStudentLogin} onFacultyLogin={onFacultyLogin}/>} exact />
-            <Route path="/logout" element={<MainHome onAdminLogin={onAdminLogin} onStudentLogin={onStudentLogin} onFacultyLogin={onFacultyLogin}/>} exact/>
             <Route path="/maincourses" element={<MainCourses onAdminLogin={onAdminLogin} onStudentLogin={onStudentLogin} onFacultyLogin={onFacultyLogin}/>} exact />
             <Route path="/mainfaculty" element={<MainFaculty onAdminLogin={onAdminLogin} onStudentLogin={onStudentLogin} onFacultyLogin={onFacultyLogin}/>} exact />
 
