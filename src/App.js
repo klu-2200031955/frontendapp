@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import RoutingsforApp from './RoutingsforApp';
 import { useEffect, useState } from 'react';
 import AdminNavBar from './admin/AdminNavBar';
@@ -15,10 +15,21 @@ function App() {
     const adminLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
     const studentLoggedIn = localStorage.getItem('isStudentLoggedIn') === 'true';
     const facultyLoggedIn = localStorage.getItem('isFacultyLoggedIn') === 'true';
-    
+
     setIsAdminLoggedIn(adminLoggedIn);
     setIsStudentLoggedIn(studentLoggedIn);
     setIsFacultyLoggedIn(facultyLoggedIn);
+
+    // Set up a timer to clear local storage after 5 minutes
+    const clearLocalStorageTimeout = setTimeout(() => {
+      localStorage.clear();
+      setIsAdminLoggedIn(false);
+      setIsStudentLoggedIn(false);
+      setIsFacultyLoggedIn(false);
+    }, 5 * 60 * 1000); // 5 minutes in milliseconds
+
+    // Clean up the timer when component unmounts
+    return () => clearTimeout(clearLocalStorageTimeout);
   }, []);
 
   const onAdminLogin = () => {
@@ -35,15 +46,16 @@ function App() {
     localStorage.setItem('isFacultyLoggedIn', 'true');
     setIsFacultyLoggedIn(true);
   };
+
   return (
     <Router>
-    <div className="App">
-      {isAdminLoggedIn ? (
-          <AdminNavBar/>  
+      <div className="App">
+        {isAdminLoggedIn ? (
+          <AdminNavBar />
         ) : isStudentLoggedIn ? (
-          <StudentNavBar/>
+          <StudentNavBar />
         ) : isFacultyLoggedIn ? (
-          <FacultyNavBar/>
+          <FacultyNavBar />
         ) : (
           <RoutingsforApp
             onAdminLogin={onAdminLogin}
@@ -51,9 +63,8 @@ function App() {
             onFacultyLogin={onFacultyLogin}
           />
         )}
-    </div>
+      </div>
     </Router>
   );
-
 }
 export default App;

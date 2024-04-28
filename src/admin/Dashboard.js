@@ -54,11 +54,11 @@ export default function Dashboard() {
                   <h3 style={{textAlign:"left"}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password:&nbsp;{adminData.password}</h3>
                 </div>
                 <div className='framee3'>
-                  <h1>Students</h1>
+                  <h1 style={{textAlign:"center"}}>Students</h1>
                   <h2 style={{textAlign:"center",color:"#2400B4"}}>{counts && counts.studentCount}</h2>
                 </div>
                 <div className='framee4'>
-                  <h1>Faculty</h1>
+                  <h1 style={{textAlign:"center"}}>Faculty</h1>
                   <h2 style={{textAlign:"center",color:"#2400B4"}}>{counts && counts.facultyCount}</h2>
                 </div>
               </div>
