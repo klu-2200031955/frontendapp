@@ -36,17 +36,17 @@ function Login({ closePopup,onAdminLogin,onFacultyLogin,onStudentLogin }) {
         onAdminLogin();
         localStorage.setItem('admin', JSON.stringify(admin.data));
         navigate("/admindashboard")
-        window.location.reload();
+        // window.location.reload();
       }else if(student.data!=null){
         onStudentLogin()
         localStorage.setItem('student', JSON.stringify(student.data));
         navigate("/studenthome/studentdashboard")
-        window.location.reload();
+        // window.location.reload();
       }else if(faculty.data!=null){
         onFacultyLogin()
         localStorage.setItem('faculty', JSON.stringify(faculty.data));
         navigate("/facultyhome/facultydashboard")
-        window.location.reload();
+        // window.location.reload();
       }else{
         setMessage("Login Failed")
         setError("")
