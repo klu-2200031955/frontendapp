@@ -15,16 +15,15 @@ export default function AdminNavBar() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+ const handleLogout = () => {
     setIsLoading(false);
     localStorage.removeItem('isAdminLoggedIn');
     localStorage.removeItem('admin');
-    navigate('/');
-    // window.location.reload();
     setTimeout(() => {
+      navigate('/');
+      window.location.reload();
     }, 2000);
   };
-
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
