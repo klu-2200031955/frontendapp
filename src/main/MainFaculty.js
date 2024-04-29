@@ -12,10 +12,12 @@ import './maintablestyle.css';
 import Login from './Login';
 import axios from 'axios';
 import config from '../config';
+import Loader from '../Loader'; // Import Loader component
 
 export default function MainCourses({ onAdminLogin, onStudentLogin, onFacultyLogin }) {
   const [facultys, setFacultys] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Add isLoading state
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
@@ -25,8 +27,10 @@ export default function MainCourses({ onAdminLogin, onStudentLogin, onFacultyLog
     try {
       const response = await axios.get(`${config.url}/viewfaculty`);
       setFacultys(response.data);
+      setIsLoading(false); // Set isLoading to false after data fetching
     } catch (error) {
       console.error(error.message);
+      setIsLoading(false); // Set isLoading to false on error
     }
   };
 
@@ -36,11 +40,12 @@ export default function MainCourses({ onAdminLogin, onStudentLogin, onFacultyLog
 
   return (
     <div className={styles.container}>
+      {isLoading && <Loader />} {/* Show loader if loading */}
       <div className={styles.group1}></div>
       <div className={styles.group111}></div>
 
       <div className={styles.group100}>
-      {showPopup && <Login closePopup={togglePopup} onAdminLogin={onAdminLogin} onFacultyLogin={onFacultyLogin} onStudentLogin={onStudentLogin} />}
+        {showPopup && <Login closePopup={togglePopup} onAdminLogin={onAdminLogin} onFacultyLogin={onFacultyLogin} onStudentLogin={onStudentLogin} />}
         <div>
           <div className="containers-21">
             <h2>Faculty List</h2>
