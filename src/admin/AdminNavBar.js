@@ -19,9 +19,9 @@ export default function AdminNavBar() {
     setIsLoading(false);
     localStorage.removeItem('isAdminLoggedIn');
     localStorage.removeItem('admin');
-    window.location.reload();
     setTimeout(() => {
       navigate('/');
+      window.location.reload();
     }, 2000);
   };
 
