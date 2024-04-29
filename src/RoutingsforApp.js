@@ -8,13 +8,12 @@ import Contact from './main/HCAP/Contact';
 import MainCourses from './main/MainCourses';
 import MainFaculty from './main/MainFaculty';
 
-export default function RoutingsforApp({onAdminLogin,onFacultyLogin,onStudentLogin}) {
+export default function RoutingsforApp({onAdminLogin,onFacultyLogin,onStudentLogin,isLoading}) {
   return (
     <div>
         <Routes>
             
             <Route path="/" element={<MainHome onAdminLogin={onAdminLogin} onStudentLogin={onStudentLogin} onFacultyLogin={onFacultyLogin}/>} exact />
-            <Route path="/home" element={<MainHome onAdminLogin={onAdminLogin} onStudentLogin={onStudentLogin} onFacultyLogin={onFacultyLogin}/>} exact />
             <Route path="/maincourses" element={<MainCourses onAdminLogin={onAdminLogin} onStudentLogin={onStudentLogin} onFacultyLogin={onFacultyLogin}/>} exact />
             <Route path="/mainfaculty" element={<MainFaculty onAdminLogin={onAdminLogin} onStudentLogin={onStudentLogin} onFacultyLogin={onFacultyLogin}/>} exact />
 

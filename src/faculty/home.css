@@ -6,7 +6,7 @@
     height: 523px;
     position: absolute;
     background-color: #ffffff;
-    
+    overflow: hidden;
   }
   
   .Img1{

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import styles from '../../template.module.css';
 import mylogo from '../../images/MY LOGO.jpg';
@@ -7,8 +7,10 @@ import StudentHomeNav from './StudentHomeNav';
 import StudentMyCoursesNav from './StudentMyCoursesNav';
 import StudentTimeTableNav from './StudentTimeTableNav';
 import HCAPNav from '../../main/HCAP/HCAPNav';
+import Loader from '../../Loader';
 
 export default function StudentNavBar() {
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const change1 = () => {
@@ -96,40 +98,54 @@ export default function StudentNavBar() {
     document.getElementById("logout").style.height = '100%';
   };
   const handleLogout = () => {
+    setIsLoading(false); 
     localStorage.removeItem('isStudentLoggedIn');
     localStorage.removeItem('student');
     navigate('/');
     window.location.reload();
   };
+
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false); 
+    }, 2000); 
+
+    return () => clearTimeout(loadingTimeout); 
+  }, []);
+
+
   return (
-    <div className={styles['template']}>
-      <div className={styles['group1']}></div>
-      <div className={styles['group2']}></div>
-      <span className={styles['text']}>
-        <span>Call +9108-350-0122</span>
-      </span>
+    <div>
+        {isLoading && <Loader />}
+        <div className={styles['template']}>
+          <div className={styles['group1']}></div>
+          <div className={styles['group2']}></div>
+          <span className={styles['text']}>
+            <span>Call +9108-350-0122</span>
+          </span>
 
-      <img src={mylogo} alt="Logo" className={styles['previewredirect6']} />
+          <img src={mylogo} alt="Logo" className={styles['previewredirect6']} />
 
-      <div className={styles['men-uitem-default3']}>
-        <Link className={styles['text39']} id='home' onClick={change1} to="/studenthome/studentdashboard">Home</Link>
-      </div>
-      <div className={styles['men-uitem-variant2']}>
-        <Link className={styles['text35']} id='mycourse' onClick={change2} to="/studentmycourses/courseregistration">My Courses</Link>
-      </div>
-      <div className={styles['men-uitem-default1']}>
-        <Link className={styles['text33']} id='timetable' onClick={change3} to="/studenttimetable/classes">Time Table</Link>
-      </div>
-      <div className={styles['men-uitem-default']}>
-        <Link className={styles['text31']} id='logout' onClick={() => { change4(); handleLogout(); }}>Logout</Link>
-      </div>
+          <div className={styles['men-uitem-default3']}>
+            <Link className={styles['text39']} id='home' onClick={change1} to="/studenthome/studentdashboard">Home</Link>
+          </div>
+          <div className={styles['men-uitem-variant2']}>
+            <Link className={styles['text35']} id='mycourse' onClick={change2} to="/studentmycourses/courseregistration">My Courses</Link>
+          </div>
+          <div className={styles['men-uitem-default1']}>
+            <Link className={styles['text33']} id='timetable' onClick={change3} to="/studenttimetable/classes">Time Table</Link>
+          </div>
+          <div className={styles['men-uitem-default']}>
+            <Link className={styles['text31']} id='logout' onClick={() => { change4(); handleLogout(); }}>Logout</Link>
+          </div>
 
-      <Routes>
-        <Route path='/studenthome/*' element={<StudentHomeNav />} exact />
-        <Route path='/studentmycourses/*' element={<StudentMyCoursesNav />} exact />
-        <Route path='/studenttimetable/*' element={<StudentTimeTableNav />} exact />
-      </Routes>
-      <HCAPNav/>
+          <Routes>
+            <Route path='/studenthome/*' element={<StudentHomeNav />} exact />
+            <Route path='/studentmycourses/*' element={<StudentMyCoursesNav />} exact />
+            <Route path='/studenttimetable/*' element={<StudentTimeTableNav />} exact />
+          </Routes>
+          <HCAPNav/>
+        </div>
     </div>
   );
 }

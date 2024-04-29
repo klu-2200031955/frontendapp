@@ -5,11 +5,13 @@ import { useEffect, useState } from 'react';
 import AdminNavBar from './admin/AdminNavBar';
 import StudentNavBar from './student/NavBars/StudentNavBar';
 import FacultyNavBar from './faculty/NavBars/FacultyNavBar';
+import Loader from './Loader';
 
 function App() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const [isStudentLoggedIn, setIsStudentLoggedIn] = useState(false);
   const [isFacultyLoggedIn, setIsFacultyLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const adminLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
@@ -20,35 +22,37 @@ function App() {
     setIsStudentLoggedIn(studentLoggedIn);
     setIsFacultyLoggedIn(facultyLoggedIn);
 
-    // Set up a timer to clear local storage after 5 minutes
-    const clearLocalStorageTimeout = setTimeout(() => {
-      localStorage.clear();
-      setIsAdminLoggedIn(false);
-      setIsStudentLoggedIn(false);
-      setIsFacultyLoggedIn(false);
-    }, 5 * 60 * 1000); // 5 minutes in milliseconds
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false); // Stop loading after 5 seconds
+    }, 5000); // Set loading timeout to 5 seconds
 
-    // Clean up the timer when component unmounts
-    return () => clearTimeout(clearLocalStorageTimeout);
+    return () => clearTimeout(loadingTimeout); // Cleanup timeout on unmount
   }, []);
 
   const onAdminLogin = () => {
     localStorage.setItem('isAdminLoggedIn', 'true');
     setIsAdminLoggedIn(true);
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 5000);
   };
 
   const onStudentLogin = () => {
     localStorage.setItem('isStudentLoggedIn', 'true');
     setIsStudentLoggedIn(true);
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 5000);
   };
 
   const onFacultyLogin = () => {
     localStorage.setItem('isFacultyLoggedIn', 'true');
     setIsFacultyLoggedIn(true);
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 5000);
   };
 
   return (
     <Router>
+      {isLoading && <Loader />}
       <div className="App">
         {isAdminLoggedIn ? (
           <AdminNavBar />

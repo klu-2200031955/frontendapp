@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import styles from '../../template.module.css';
 import mylogo from '../../images/MY LOGO.jpg';
@@ -7,8 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import FacultyHomeNav from './FacultyHomeNav';
 import FacultyMyDeptNav from './FacultyMyDeptNav';
 import FacultyTimeTable from './FacultyTimeTable';
+import Loader from '../../Loader';
 
 export default function FacultyNavBar() {
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const change1 = () => {
@@ -100,42 +102,54 @@ export default function FacultyNavBar() {
   };
 
   const handleLogout = () => {
+    setIsLoading(false); 
     localStorage.removeItem('isFacultyLoggedIn');
     localStorage.removeItem('faculty');
     navigate('/');
     window.location.reload();
   };
 
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false); 
+    }, 2000); 
+
+    return () => clearTimeout(loadingTimeout); 
+  }, []);
+
   return (
-    <div className={styles.template}>
-      <div className={styles.group1}></div>
-      <div className={styles.group2}></div>
-      <span className={styles.text}>
-        <span>Call +9108-350-0122</span>
-      </span>
+    <div>
+      {isLoading && <Loader />}
+      <div className={styles.template}>
+        <div className={styles.group1}></div>
+        <div className={styles.group2}></div>
+        <span className={styles.text}>
+          <span>Call +9108-350-0122</span>
+        </span>
 
-      <img src={mylogo} alt='Company Logo' className={styles.previewredirect6} />
+        <img src={mylogo} alt='Company Logo' className={styles.previewredirect6} />
 
-      <div className={styles['men-uitem-default3']}>
-        <Link className={styles.text39} id='home' onClick={change1} to="/facultyhome/facultydashboard">Home</Link>
-      </div>
-      <div className={styles['men-uitem-variant2']}>
-        <Link className={styles.text35} id='mycourse' onClick={change2} to="/facultymydept/facultymycoursedetails">My Dept</Link>
-      </div>
-      <div className={styles['men-uitem-default1']}>
-        <Link className={styles.text33} id='timetable' onClick={change3} to="/facultytimetable/facultyclasses">Time Table</Link>
-      </div>
-      <div className={styles['men-uitem-default']}>
-        <Link className={styles.text31} id='logout' onClick={() => { change4(); handleLogout(); }}>Logout</Link>
-      </div>
+        <div className={styles['men-uitem-default3']}>
+          <Link className={styles.text39} id='home' onClick={change1} to="/facultyhome/facultydashboard">Home</Link>
+        </div>
+        <div className={styles['men-uitem-variant2']}>
+          <Link className={styles.text35} id='mycourse' onClick={change2} to="/facultymydept/facultymycoursedetails">My Dept</Link>
+        </div>
+        <div className={styles['men-uitem-default1']}>
+          <Link className={styles.text33} id='timetable' onClick={change3} to="/facultytimetable/facultyclasses">Time Table</Link>
+        </div>
+        <div className={styles['men-uitem-default']}>
+          <Link className={styles.text31} id='logout' onClick={() => { change4(); handleLogout(); }}>Logout</Link>
+        </div>
 
-      <Routes>
-        <Route path="/facultyhome/*" element={<FacultyHomeNav />} exact />
-        <Route path="/facultymydept/*" element={<FacultyMyDeptNav />} exact />
-        <Route path="/facultytimetable/*" element={<FacultyTimeTable />} exact />
-      </Routes>
+        <Routes>
+          <Route path="/facultyhome/*" element={<FacultyHomeNav />} exact />
+          <Route path="/facultymydept/*" element={<FacultyMyDeptNav />} exact />
+          <Route path="/facultytimetable/*" element={<FacultyTimeTable />} exact />
+        </Routes>
 
-      <HCAPNav />
+        <HCAPNav />
+      </div>
     </div>
   );
 }

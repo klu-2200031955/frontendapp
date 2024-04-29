@@ -1,5 +1,4 @@
-import React from 'react';
-import HCAPNav from '../main/HCAP/HCAPNav';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import styles from '../template.module.css';
 import Dashboard from './Dashboard';
@@ -8,28 +7,35 @@ import Student from './Student';
 import Framing from './Framing';
 import Course from './Course';
 import mylogo from '../images/MY LOGO.jpg';
+import Loader from '../Loader';
 import { useNavigate } from 'react-router-dom';
-
-
+import HCAPNav from '../main/HCAP/HCAPNav';
 
 export default function AdminNavBar() {
-  const navigate = useNavigate()
-  const change4 = () => {
-    document.getElementById("logout").style.backgroundColor = 'black';
-    document.getElementById("logout").style.color = 'white';
-    document.getElementById("logout").style.borderRadius = '50px';
-    document.getElementById("logout").style.height = '100%';
-  };
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
+    setIsLoading(false);
     localStorage.removeItem('isAdminLoggedIn');
     localStorage.removeItem('admin');
-    navigate('/');
     window.location.reload();
+    setTimeout(() => {
+      navigate('/');
+    }, 2000);
   };
+
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(loadingTimeout);
+  }, []);
 
   return (
     <div>
+      {isLoading && <Loader />}
       <div className={styles['template']}>
         <div className={styles['group1']}></div>
         <div className={styles['group2']}></div>
@@ -40,7 +46,7 @@ export default function AdminNavBar() {
         <img src={mylogo} alt='My Logo' className={styles['previewredirect6']} />
 
         <div className={styles['men-uitem-default']}>
-          <Link className={styles['text31']} id='logout' onClick={() => { change4(); handleLogout(); }}>Logout</Link>
+          <Link className={styles['text31']} id='logout' onClick={handleLogout}>Logout</Link>
         </div>
         <div className={styles['frame22']}>
           <Link className={styles['text17']} to="/admindashboard">Dashboard</Link>
@@ -57,8 +63,7 @@ export default function AdminNavBar() {
           <Route path="/adminframing/*" element={<Framing />} exact />
           <Route path="/admincourses/*" element={<Course />} exact />
         </Routes>
-
-        <HCAPNav />
+        <HCAPNav/>
       </div>
     </div>
   );

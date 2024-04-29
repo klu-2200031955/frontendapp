@@ -1,14 +1,30 @@
-import React from 'react'
-import {Routes,Route,Link} from 'react-router-dom'
+import React, { useState,useEffect } from 'react';
+import {Routes,Route,Link,useLocation} from 'react-router-dom'
 import styles from '../../template.module.css'
 import MyCertificates from '../Home/MyCertificates'
 import OnlineClasses from '../Home/OnlineClasses'
 import StudentNavBar from './StudentNavBar'
 import Dashboard from '../Home/Dashboard'
+import Loader from '../../Loader';
 
 export default function StudentHomeNav() {
+  const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+
+
+  useEffect(() => {
+    setIsLoading(true); 
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false); 
+    }, 2000);
+
+    return () => clearTimeout(loadingTimeout); 
+  }, [location.pathname]); 
+
   return (
     <div>
+      {isLoading && <Loader />}
+
         <StudentNavBar/>
 
       <div className={styles['frame22']}>

@@ -1,21 +1,40 @@
 .container {
-    width: 100%;
-    display: flex;
-    overflow: auto;
-    min-height: 100vh;
-    align-items: center;
-    flex-direction: column;
-  }
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+
+.template {
+  width: 90%; /* Adjust as needed */
+  max-width: 1550px; /* Limit maximum width */
+  height: 80vh;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* Add more styles as needed */
+
+@media only screen and (max-width: 768px) {
+  /* Adjust styles for smaller screens */
   .template {
-    width: 100%;
-    height: 693px;
-    display: flex;
-    overflow: hidden;
-    position: relative;
-    align-items: flex-start;
-    flex-shrink: 0;
-    background-color: rgba(255, 255, 255, 1);
+    width: 95%; /* Adjust as needed */
   }
+}
+
+@media only screen and (max-width: 576px) {
+  /* Further adjustments for even smaller screens */
+  .template {
+    width: 100%; /* Full width on smaller screens */
+  }
+}
+
   .group1 {
     top: 0px;
     left: 0px;
@@ -350,7 +369,7 @@
   .frame2 {
     top: 1895px;
     left: 0px;
-    width: 1647px;
+    width: 1550px;
     height: 45px;
     display: flex;
     overflow: hidden;
@@ -374,7 +393,7 @@
   .frame6 {
     top: 1853px;
     left: 0px;
-    width: 1647px;
+    width: 1550px;
     height: 40px;
     display: flex;
     overflow: hidden;
