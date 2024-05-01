@@ -23,10 +23,20 @@ function App() {
     setIsFacultyLoggedIn(facultyLoggedIn);
 
     const loadingTimeout = setTimeout(() => {
-      setIsLoading(false); // Stop loading after 5 seconds
-    }, 5000); // Set loading timeout to 5 seconds
+      setIsLoading(false); 
+    }, 5000);
 
-    return () => clearTimeout(loadingTimeout); // Cleanup timeout on unmount
+    // const clearLocalStorageTimeout = setTimeout(() => {
+    //   localStorage.clear();
+    //   setIsAdminLoggedIn(false);
+    //   setIsStudentLoggedIn(false);
+    //   setIsFacultyLoggedIn(false);
+    // }, 10*60*1000);
+
+    return () => {
+      clearTimeout(loadingTimeout); 
+      // clearTimeout(clearLocalStorageTimeout); 
+    };
   }, []);
 
   const onAdminLogin = () => {

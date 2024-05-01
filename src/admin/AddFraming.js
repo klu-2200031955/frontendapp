@@ -80,7 +80,7 @@ export default function AddFraming({ closePopup }) {
         setFormData({
           facultyid: '',
           ccode: '',
-          component: '',
+          component: [],
           section: ''
         });
         setMessage(response.data);

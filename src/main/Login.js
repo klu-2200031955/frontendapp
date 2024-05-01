@@ -40,11 +40,17 @@ function Login({ closePopup,onAdminLogin,onFacultyLogin,onStudentLogin }) {
       }else if(student.data!=null){
         onStudentLogin()
         localStorage.setItem('student', JSON.stringify(student.data));
+        if(student.data.isFirstLogin){
+          navigate("/studenthome/studentchangepassword");
+        }
         navigate("/studenthome/studentdashboard")
         // window.location.reload();
       }else if(faculty.data!=null){
         onFacultyLogin()
         localStorage.setItem('faculty', JSON.stringify(faculty.data));
+        if(faculty.data.isFirstLogin){
+          navigate("/facultyhome/facultychangepassword")
+        }
         navigate("/facultyhome/facultydashboard")
         // window.location.reload();
       }else{

@@ -8,8 +8,8 @@
 }
 
 .template {
-  width: 90%; /* Adjust as needed */
-  max-width: 1550px; /* Limit maximum width */
+  width: 90%; 
+  max-width: 1550px;
   height: 80vh;
   display: flex;
   overflow: hidden;
@@ -18,23 +18,6 @@
   flex-shrink: 0;
   background-color: rgba(255, 255, 255, 1);
 }
-
-/* Add more styles as needed */
-
-@media only screen and (max-width: 768px) {
-  /* Adjust styles for smaller screens */
-  .template {
-    width: 95%; /* Adjust as needed */
-  }
-}
-
-@media only screen and (max-width: 576px) {
-  /* Further adjustments for even smaller screens */
-  .template {
-    width: 100%; /* Full width on smaller screens */
-  }
-}
-
   .group1 {
     top: 0px;
     left: 0px;

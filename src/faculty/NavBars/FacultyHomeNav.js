@@ -5,6 +5,7 @@ import FacultyNavBar from './FacultyNavBar';
 import Dashboard from '../Home/Dashboard';
 import MyAchievements from '../Home/MyAchievements';
 import Loader from '../../Loader';
+import ChangePassword from '../Home/ChangePassword';
 
 export default function FacultyHomeNav() {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,10 +28,12 @@ export default function FacultyHomeNav() {
       <div className={styles['frame22']}>
         <Link className={styles['text17']} to="/facultyhome/facultydashboard">Dashboard</Link>
         <Link className={styles['text19']} to="/facultyhome/facultymyachievements">My Achievements</Link>
+        <Link className={styles['text21']} to="/facultyhome/facultychangepassword">Change Password</Link>
       </div>
       <Routes>
-        <Route path="/facultydashboard" element={<Dashboard />} exact />
-        <Route path="/facultymyachievements" element={<MyAchievements />} exact />
+        <Route path="/facultydashboard/*" element={<Dashboard />} exact />
+        <Route path="/facultymyachievements/*" element={<MyAchievements />} exact />
+        <Route path="/facultychangepassword/*" element={<ChangePassword/>} exact />
       </Routes>
     </div>
   );

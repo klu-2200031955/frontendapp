@@ -7,6 +7,7 @@
     position: absolute;
     background-color: #ffffff;
     overflow: hidden;
+    margin: 0 0;
   }
   
   .Img1{
@@ -15,6 +16,7 @@
     position: absolute;
     height: 190px;
     width: 190px;
+    margin: 0 0;
   }
   
   .framee-2{
@@ -25,6 +27,7 @@
     border-radius: 20px;
     position: absolute;
     background-color: #AAA6A6;
+    margin: 0 0;
   }
 
   .image-2-1{
@@ -33,6 +36,7 @@
     width: 145px;
     height: 140px;
     position: absolute;
+    margin: 0 0;
   }
 
   .framee-2-1{
@@ -43,6 +47,7 @@
     border-radius: 60px;
     position: absolute;
     background-color: #838383;
+    margin: 0 0;
   }
 
   .framee-3{
@@ -52,7 +57,8 @@
     height: 270px;
     /* border-radius: 20px; */
     position: absolute;
-    background-color: #AAA6A6;  
+    background-color: #AAA6A6;
+    margin: 0 0;  
   }
   .framee-4{
     top: 260px;
@@ -62,6 +68,7 @@
     position: absolute;
     border-radius: 20px;
     background-color: #AAA6A6;
+    margin: 0 0;
   }
   .framee-5{
     top: 5px;
@@ -71,6 +78,7 @@
     position: absolute;
     border-radius: 20px;
     background-color: #AAA6A6;
+    margin: 0 0;
   }
 
   .img-1{
@@ -79,6 +87,7 @@
     width: px;
     height: 510px;
     position: absolute;
+    margin: 0 0;
   }
 
   .location-name{
@@ -87,13 +96,18 @@
     width: px;
     height: 510px;
     position: absolute;
-  }.location-details{
+    margin: 37px 0;
+    line-height: 245%;
+  }
+  .location-details{
     top:20px;
     left:335px;
     width: px;
     text-align: left;
     height: 510px;
     position: absolute;
+    margin: 15px 0;
+    line-height: 235%;
   }
 
   .location-name-1{
@@ -102,13 +116,18 @@
     width: px;
     height: 510px;
     position: absolute;
-  }.location-details-1{
+    margin: 37px 0;
+    line-height: 245%;
+  }
+  .location-details-1{
     top:20px;
     left:435px;
     width: px;
     text-align: left;
     height: 510px;
     position: absolute;
+    margin: 15px 0;
+    line-height: 245%;
   }
 
   
@@ -118,6 +137,7 @@
     width: 145px;
     height: 140px;
     position: absolute;
+    margin: 0 0;
   }
   .image-2-3{
     top: 163px;
@@ -125,6 +145,7 @@
     width: 145px;
     height: 140px;
     position: absolute;
+    margin: 0 0;
   }
   .image-2-4{
     top: 163px;
@@ -132,4 +153,5 @@
     width: 145px;
     height: 140px;
     position: absolute;
+    margin: 0 0;
   }
