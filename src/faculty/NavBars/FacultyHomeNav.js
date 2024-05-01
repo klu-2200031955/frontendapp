@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Routes, Route, useLocation } from 'react-router-dom';
 import styles from '../../template.module.css';
 import FacultyNavBar from './FacultyNavBar';
@@ -8,18 +8,25 @@ import Loader from '../../Loader';
 import ChangePassword from '../Home/ChangePassword';
 
 export default function FacultyHomeNav() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
 
-
   useEffect(() => {
-    setIsLoading(true); 
-    const loadingTimeout = setTimeout(() => {
-      setIsLoading(false); 
-    }, 2000);
+    const fetchData = async () => {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      }
+    };
 
-    return () => clearTimeout(loadingTimeout); 
-  }, [location.pathname]); 
+    fetchData();
+
+    return () => {
+    };
+  }, [location.pathname]);
 
   return (
     <div>
@@ -33,7 +40,7 @@ export default function FacultyHomeNav() {
       <Routes>
         <Route path="/facultydashboard/*" element={<Dashboard />} exact />
         <Route path="/facultymyachievements/*" element={<MyAchievements />} exact />
-        <Route path="/facultychangepassword/*" element={<ChangePassword/>} exact />
+        <Route path="/facultychangepassword/*" element={<ChangePassword />} exact />
       </Routes>
     </div>
   );

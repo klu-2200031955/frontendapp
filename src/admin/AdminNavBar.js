@@ -15,8 +15,25 @@ export default function AdminNavBar() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
- const handleLogout = () => {
-    setIsLoading(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchSomeData();
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+    };
+  }, []);
+
+  const handleLogout = () => {
+    setIsLoading(true);
     localStorage.removeItem('isAdminLoggedIn');
     localStorage.removeItem('admin');
     setTimeout(() => {
@@ -24,13 +41,10 @@ export default function AdminNavBar() {
       window.location.reload();
     }, 2000);
   };
-  useEffect(() => {
-    const loadingTimeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
 
-    return () => clearTimeout(loadingTimeout);
-  }, []);
+  const fetchSomeData = async () => {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+  };
 
   return (
     <div>

@@ -1,6 +1,6 @@
-import React, { useState,useEffect } from 'react';
-import {Routes,Route,Link,useLocation} from 'react-router-dom'
-import styles from '../../template.module.css'
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import styles from '../../template.module.css';
 import Exams from './../TimeTable/Exams';
 import Classes from '../TimeTable/Classes';
 import StudentNavBar from './StudentNavBar';
@@ -9,6 +9,7 @@ import Loader from '../../Loader';
 export default function StudentTimeTableNav() {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
+
   useEffect(() => {
     setIsLoading(true); 
     const loadingTimeout = setTimeout(() => {
@@ -28,8 +29,8 @@ export default function StudentTimeTableNav() {
         </div>
 
         <Routes>
-            <Route path="/classes" element={<Classes/>} exact/>
-            <Route path="/exams" element={<Exams/>} exact/>
+            <Route path="/studenttimetable/classes" element={<Classes/>} exact/>
+            <Route path="/studenttimetable/exams" element={<Exams/>} exact/>
         </Routes>
     </div>
   )

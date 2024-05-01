@@ -14,11 +14,18 @@ export default function FacultyMyDeptNav() {
   const location = useLocation();
 
   useEffect(() => {
-    setIsLoading(true);
-    const loadingTimeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-    return () => clearTimeout(loadingTimeout);
+    const fetchData = async () => {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+    return () => {
+    };
   }, [location.pathname]);
 
   return (
