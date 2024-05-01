@@ -39,10 +39,10 @@ export default function StudentMyCoursesNav() {
         <Link className={styles['text23']} to="/studentmycourses/attendance">Attendance</Link>
       </div>
       <Routes>
-        <Route path="/studentmycourses/courseregistration/*" element={<CourseRegistration />} exact />
-        <Route path="/studentmycourses/uploads/*" element={<Uploads />} exact />
-        <Route path="/studentmycourses/materials/*" element={<Materials />} exact />
-        <Route path="/studentmycourses/attendance/*" element={<Attendance />} exact />
+        <Route path="/courseregistration/*" element={<CourseRegistration />} exact />
+        <Route path="/uploads/*" element={<Uploads />} exact />
+        <Route path="/materials/*" element={<Materials />} exact />
+        <Route path="/attendance/*" element={<Attendance />} exact />
       </Routes>
     </div>
   );

@@ -29,8 +29,8 @@ export default function StudentTimeTableNav() {
         </div>
 
         <Routes>
-            <Route path="/studenttimetable/classes" element={<Classes/>} exact/>
-            <Route path="/studenttimetable/exams" element={<Exams/>} exact/>
+            <Route path="/classes" element={<Classes/>} exact/>
+            <Route path="/exams" element={<Exams/>} exact/>
         </Routes>
     </div>
   )
