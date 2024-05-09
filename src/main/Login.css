@@ -13,6 +13,11 @@
     transition: top 0ms ease-in-out 200ms,
                 opacity 200ms ease-in-out 0ms,
                 transform 200ms ease-in-out 0ms;
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
   }
   
   .popup.active {
@@ -90,7 +95,7 @@
   .form-element .show-password {
     position: absolute;
     top: 44%;
-    right: 41px;
+    right: 67px;
     transform: translateY(-50%);
     background: none;
     border: none;
