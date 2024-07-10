@@ -23,19 +23,21 @@ function App() {
     setIsFacultyLoggedIn(facultyLoggedIn);
 
     const loadingTimeout = setTimeout(() => {
-      setIsLoading(false); 
+      setIsLoading(false);
     }, 5000);
 
-    // const clearLocalStorageTimeout = setTimeout(() => {
-    //   localStorage.clear();
-    //   setIsAdminLoggedIn(false);
-    //   setIsStudentLoggedIn(false);
-    //   setIsFacultyLoggedIn(false);
-    // }, 10*60*1000);
+    const handleBeforeUnload = (event) => {
+      localStorage.removeItem('isAdminLoggedIn');
+      localStorage.removeItem('isStudentLoggedIn');
+      localStorage.removeItem('isFacultyLoggedIn');
+      event.returnValue = ''; // Standard for most browsers
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
-      clearTimeout(loadingTimeout); 
-      // clearTimeout(clearLocalStorageTimeout); 
+      clearTimeout(loadingTimeout);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);
 
@@ -81,4 +83,5 @@ function App() {
     </Router>
   );
 }
+
 export default App;
