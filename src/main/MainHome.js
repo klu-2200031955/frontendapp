@@ -66,7 +66,7 @@ export default function MainHome({ onAdminLogin, onStudentLogin, onFacultyLogin 
         <span className={styles['text026']}>
           <span>
             <span></span>
-            <br></br>
+            {/* <br></br> */}
             <span>Chancellor, Koneru Lakshmaiah Education Foundation</span>
           </span>
         </span>
