@@ -26,18 +26,18 @@ function App() {
       setIsLoading(false);
     }, 5000);
 
-    const handleBeforeUnload = (event) => {
-      localStorage.removeItem('isAdminLoggedIn');
-      localStorage.removeItem('isStudentLoggedIn');
-      localStorage.removeItem('isFacultyLoggedIn');
-      event.returnValue = ''; // Standard for most browsers
-    };
+    // const handleBeforeUnload = (event) => {
+    //   localStorage.removeItem('isAdminLoggedIn');
+    //   localStorage.removeItem('isStudentLoggedIn');
+    //   localStorage.removeItem('isFacultyLoggedIn');
+    //   event.returnValue = ''; // Standard for most browsers
+    // };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    // window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
       clearTimeout(loadingTimeout);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      // window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);
 
