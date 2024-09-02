@@ -62,7 +62,7 @@ export default function MainCourses({ onAdminLogin, onStudentLogin, onFacultyLog
                   <li className="table-row21" key={index}>
                     <div className="col col-1">{index + 1}</div>
                     <div className="col col-2" style={{ color: '#2400B4' }}>{faculty.fullname}</div>
-                    <div className="col col-3">{faculty.gender}</div>
+                    <div className="col col-3" style={{textTransform: 'capitalize'}}>{faculty.gender}</div>
                     <div className="col col-4">{faculty.degree.join(' , ')}</div>
                     <div className="col col-5">{faculty.experience}</div>
                   </li>
