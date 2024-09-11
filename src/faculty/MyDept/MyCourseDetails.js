@@ -36,7 +36,6 @@ export default function MyCourseDetails() {
               <th>Course Title</th>
               <th>Component</th>
               <th>Section</th>
-              <th>Attendance</th>
               <th>View Students</th>
             </tr>
           </thead>
@@ -64,7 +63,6 @@ export default function MyCourseDetails() {
                     ))}
                   </td>
                   <td>{course.section}</td>
-                  <td><button>Click Here</button></td>
                   <td><button>Click Here</button></td>
                 </tr>
               ))
