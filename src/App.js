@@ -25,10 +25,6 @@ function App() {
     setIsFacultyLoggedIn(false);
   };
 
-  const clearLocalStorage = () => {
-    localStorage.clear();
-  };
-
   const updateLastActivityTime = useCallback(() => {
     localStorage.setItem('lastActivityTime', Date.now().toString());
   }, []);
@@ -59,16 +55,9 @@ function App() {
       checkInactivity();
     }, 60000);
 
-    const handleUnload = () => {
-      clearLocalStorage();
-    };
-
-    window.addEventListener('beforeunload', handleUnload);
-
     return () => {
       clearTimeout(loadingTimeout);
       clearInterval(inactivityInterval);
-      window.removeEventListener('beforeunload', handleUnload);
     };
   }, [checkInactivity, updateLastActivityTime]);
 
