@@ -37,34 +37,34 @@ export default function ViewStudents({ closePopup, fmapid }) {
   return (
     <div>
       <div className="popup active">
-        <div className="popup-content">
+        <div >
           <span className="close-btn" onClick={handleClose}>
             &times;
           </span>
-          <table>
-            <thead>
-              <tr>
-                <th>S.No</th>
-                <th>Student ID</th>
-                <th>Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(student) && student.length > 0 ? (
-                student.map((student, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{student.studentid}</td>
-                    <td>{student.fullname}</td>
-                  </tr>
-                ))
-              ) : (
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+              <thead>
                 <tr>
-                  <td colSpan="3">Data Not Found</td>
+                  <th style={{ border: '1px solid #ddd', padding: '8px' }}>S.No</th>
+                  <th style={{ border: '1px solid #ddd', padding: '8px' }}>Student ID</th>
+                  <th style={{ border: '1px solid #ddd', padding: '12px' }}>Name</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {Array.isArray(student) && student.length > 0 ? (
+                  student.map((student, index) => (
+                    <tr key={index}>
+                      <td style={{ border: '1px solid #ddd', padding: '8px' }}>{index + 1}</td>
+                      <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.studentid}</td>
+                      <td style={{ border: '1px solid #ddd', padding: '8px' }}>{student.fullname}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="3" style={{ border: '1px solid #ddd', padding: '8px' }}>Data Not Found</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
         </div>
       </div>
     </div>
