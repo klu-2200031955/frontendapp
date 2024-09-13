@@ -13,7 +13,7 @@ function App() {
   const [isFacultyLoggedIn, setIsFacultyLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const INACTIVITY_LIMIT = 10 * 60 * 1000; // 10 minutes in milliseconds
+  const INACTIVITY_LIMIT = 10 * 60 * 1000;
 
   const logout = () => {
     localStorage.removeItem('isAdminLoggedIn');
@@ -23,6 +23,10 @@ function App() {
     setIsAdminLoggedIn(false);
     setIsStudentLoggedIn(false);
     setIsFacultyLoggedIn(false);
+  };
+
+  const clearLocalStorage = () => {
+    localStorage.clear();
   };
 
   const updateLastActivityTime = useCallback(() => {
@@ -45,32 +49,29 @@ function App() {
     setIsStudentLoggedIn(studentLoggedIn);
     setIsFacultyLoggedIn(facultyLoggedIn);
 
-    // Set initial last activity time on mount
     updateLastActivityTime();
 
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
     }, 5000);
 
-    // Inactivity check every minute
     const inactivityInterval = setInterval(() => {
       checkInactivity();
-    }, 60000); // Check every 1 minute
+    }, 60000);
 
-    const handleBeforeUnload = () => {
-      updateLastActivityTime(); // Ensure last activity time is updated before leaving the page
+    const handleUnload = () => {
+      clearLocalStorage();
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('beforeunload', handleUnload);
 
     return () => {
       clearTimeout(loadingTimeout);
       clearInterval(inactivityInterval);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('beforeunload', handleUnload);
     };
   }, [checkInactivity, updateLastActivityTime]);
 
-  // Reset inactivity timer on any user interaction (click, keypress, etc.)
   useEffect(() => {
     const resetInactivityTimer = () => updateLastActivityTime();
     window.addEventListener('click', resetInactivityTimer);
