@@ -10,13 +10,15 @@ export default function CourseRegistration() {
   const [courses, setCourses] = useState([]);
   const [faculties, setFaculties] = useState([]);
   const [formData, setFormData] = useState({
-    ccode:'',
-    facultyid:'',
-    fmapid:'',
-    studentid:''
+    ccode: '',
+    facultyid: '',
+    fmapid: '',
+    studentid: '',
+    fullname: ''
   });
   const [scourses, setScourses] = useState([]);
   const [studentid, setStudentid] = useState('');
+  const [fullname, setFullname] = useState('');
 
   useEffect(() => {
     const storedStudentData = localStorage.getItem('student');
@@ -24,6 +26,12 @@ export default function CourseRegistration() {
       const parsedStudentData = JSON.parse(storedStudentData);
       setStudentData(parsedStudentData);
       setStudentid(parsedStudentData.studentid);
+      setFullname(parsedStudentData.fullname);
+      setFormData((prevData) => ({
+        ...prevData,
+        studentid: parsedStudentData.studentid,
+        fullname: parsedStudentData.fullname,
+      }));
     }
   }, []);
 
@@ -60,29 +68,33 @@ export default function CourseRegistration() {
     }
   };
 
-  const handleChange1 = async (e) => {
+  const handleChange1 = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const selectedFacultyId = document.getElementById('facultyid').value;
+      const selectedFacultyId = formData.facultyid;
       const selectedFmapId = faculties.find(faculty => faculty.facultyid === selectedFacultyId)?.fmapid || '';
-      setFormData({
+      
+      const updatedFormData = {
         ...formData,
         fmapid: selectedFmapId,
-        studentid: studentid
-      });
-      const response = await axios.post(`${config.url}/insertstudentcourses`, formData);
+        studentid: studentid,
+        fullname: fullname,
+      };
+
+      const response = await axios.post(`${config.url}/insertstudentcourses`, updatedFormData);
       if (response.status === 200) {
         // Reset form data
         setFormData({
-          ccode:'',
-          facultyid:'',
-          fmapid:'',
-          studentid:''
+          ccode: '',
+          facultyid: '',
+          fmapid: '',
+          studentid: '',
+          fullname: ''
         });
         // Refetch student courses
         fetchScourses(studentid);
@@ -91,14 +103,13 @@ export default function CourseRegistration() {
       console.error(error.message);
     }
   };
-  
+
   useEffect(() => {
     fetchCourses(ay);
     fetchFaculties();
     fetchScourses(studentid);
   }, [ay, studentid]);
-  
-  
+
   return (
     <div>
       <StudentMyCoursesNav />
@@ -141,9 +152,7 @@ export default function CourseRegistration() {
               <tr>
                 <th>S.No</th>
                 <th>Course Code</th>
-                {/* <th>Course Title</th> */}
                 <th>Faculty ID</th>
-                {/* <th>Faculty Name</th> */}
               </tr>
             </thead>
             <tbody>
@@ -152,15 +161,14 @@ export default function CourseRegistration() {
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{course.ccode}</td>
-                    {/* <td>{ctitle}</td> */}
                     <td>{course.facultyid}</td>
-                    {/* <td>{fullname}</td> */}
                   </tr>
-                ))) : (
-                  <tr>
-                    <td colSpan={5}>No Data Found.</td>
-                  </tr>
-                )}
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={5}>No Data Found.</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

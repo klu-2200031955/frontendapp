@@ -3,9 +3,21 @@ import styles from '../../template.module.css';
 import FacultyMyDeptNav from '../NavBars/FacultyMyDeptNav';
 import axios from 'axios';
 import config from '../../config';
+import ViewStudents from './ViewStudents';
 
 export default function MyCourseDetails() {
   const [courses, setCourses] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [fmapid, setFmapid] = useState(null);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
+  const handleViewStudentsClick = (id) => {
+    setFmapid(id);
+    togglePopup();
+  };
 
   useEffect(() => {
     const storedFacultyData = localStorage.getItem('faculty');
@@ -27,6 +39,7 @@ export default function MyCourseDetails() {
   return (
     <div>
       <FacultyMyDeptNav />
+      {showPopup && (<ViewStudents closePopup={togglePopup} fmapid={fmapid} />)}
       <div className={styles['group100']}>
         <table className='responsive-table' border={1} align="center" style={{ width: 'auto', height: 'auto' }}>
           <thead>
@@ -63,12 +76,12 @@ export default function MyCourseDetails() {
                     ))}
                   </td>
                   <td>{course.section}</td>
-                  <td><button>Click Here</button></td>
+                  <td><button onClick={() => handleViewStudentsClick(course.fmapid)}>Click Here</button></td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="5">Data Not Found</td>
+                <td colSpan="6">Data Not Found</td>
               </tr>
             )}
           </tbody>

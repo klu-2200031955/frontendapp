@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import RoutingsforApp from './RoutingsforApp';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import AdminNavBar from './admin/AdminNavBar';
 import StudentNavBar from './student/NavBars/StudentNavBar';
 import FacultyNavBar from './faculty/NavBars/FacultyNavBar';
@@ -13,6 +13,29 @@ function App() {
   const [isFacultyLoggedIn, setIsFacultyLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const INACTIVITY_LIMIT = 10 * 60 * 1000; // 10 minutes in milliseconds
+
+  const logout = () => {
+    localStorage.removeItem('isAdminLoggedIn');
+    localStorage.removeItem('isStudentLoggedIn');
+    localStorage.removeItem('isFacultyLoggedIn');
+    localStorage.removeItem('lastActivityTime');
+    setIsAdminLoggedIn(false);
+    setIsStudentLoggedIn(false);
+    setIsFacultyLoggedIn(false);
+  };
+
+  const updateLastActivityTime = useCallback(() => {
+    localStorage.setItem('lastActivityTime', Date.now().toString());
+  }, []);
+
+  const checkInactivity = useCallback(() => {
+    const lastActivityTime = parseInt(localStorage.getItem('lastActivityTime'), 10);
+    if (lastActivityTime && Date.now() - lastActivityTime > INACTIVITY_LIMIT) {
+      logout();
+    }
+  }, [INACTIVITY_LIMIT]);
+
   useEffect(() => {
     const adminLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
     const studentLoggedIn = localStorage.getItem('isStudentLoggedIn') === 'true';
@@ -22,28 +45,47 @@ function App() {
     setIsStudentLoggedIn(studentLoggedIn);
     setIsFacultyLoggedIn(facultyLoggedIn);
 
+    // Set initial last activity time on mount
+    updateLastActivityTime();
+
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
     }, 5000);
 
-    // const handleBeforeUnload = (event) => {
-    //   localStorage.removeItem('isAdminLoggedIn');
-    //   localStorage.removeItem('isStudentLoggedIn');
-    //   localStorage.removeItem('isFacultyLoggedIn');
-    //   event.returnValue = ''; // Standard for most browsers
-    // };
+    // Inactivity check every minute
+    const inactivityInterval = setInterval(() => {
+      checkInactivity();
+    }, 60000); // Check every 1 minute
 
-    // window.addEventListener('beforeunload', handleBeforeUnload);
+    const handleBeforeUnload = () => {
+      updateLastActivityTime(); // Ensure last activity time is updated before leaving the page
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
       clearTimeout(loadingTimeout);
-      // window.removeEventListener('beforeunload', handleBeforeUnload);
+      clearInterval(inactivityInterval);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, []);
+  }, [checkInactivity, updateLastActivityTime]);
+
+  // Reset inactivity timer on any user interaction (click, keypress, etc.)
+  useEffect(() => {
+    const resetInactivityTimer = () => updateLastActivityTime();
+    window.addEventListener('click', resetInactivityTimer);
+    window.addEventListener('keypress', resetInactivityTimer);
+
+    return () => {
+      window.removeEventListener('click', resetInactivityTimer);
+      window.removeEventListener('keypress', resetInactivityTimer);
+    };
+  }, [updateLastActivityTime]);
 
   const onAdminLogin = () => {
     localStorage.setItem('isAdminLoggedIn', 'true');
     setIsAdminLoggedIn(true);
+    updateLastActivityTime();
     setIsLoading(true);
     setTimeout(() => setIsLoading(false), 5000);
   };
@@ -51,6 +93,7 @@ function App() {
   const onStudentLogin = () => {
     localStorage.setItem('isStudentLoggedIn', 'true');
     setIsStudentLoggedIn(true);
+    updateLastActivityTime();
     setIsLoading(true);
     setTimeout(() => setIsLoading(false), 5000);
   };
@@ -58,6 +101,7 @@ function App() {
   const onFacultyLogin = () => {
     localStorage.setItem('isFacultyLoggedIn', 'true');
     setIsFacultyLoggedIn(true);
+    updateLastActivityTime();
     setIsLoading(true);
     setTimeout(() => setIsLoading(false), 5000);
   };
