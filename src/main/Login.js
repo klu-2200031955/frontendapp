@@ -98,7 +98,7 @@ function Login({ closePopup,onAdminLogin,onFacultyLogin,onStudentLogin }) {
 
         </div>
         
-        <ReCAPTCHA sitekey='6LdMBJMpAAAAAPwKTXr7CHvJ41sqADyBKNMNT0gT' onChange={(val) => setCapVal(val)} align='center'/>
+        <ReCAPTCHA sitekey='6LdOVQcrAAAAAAXSEcRmb4c3QoZWG4e-TOBnavN4' onChange={(val) => setCapVal(val)} align='center'/>
         <div className='form-element'>
         </div>
         <div align="center">
